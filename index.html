@@ -16,9 +16,7 @@
             --c-orange: #ffedd5;
             --c-green: #bbf7d0;
         }
-
         * { box-sizing: border-box; }
-        
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: #cbd5e1;
@@ -27,7 +25,6 @@
             display: flex;
             justify-content: center;
         }
-
         .poster-card {
             width: 100%;
             max-width: 650px;
@@ -39,7 +36,6 @@
             overflow: hidden;
             border: 1px solid #bfdbfe;
         }
-        
         .controls {
             display: none; 
             justify-content: space-between;
@@ -50,7 +46,6 @@
             border-radius: 12px;
             border: 1px dashed #2563eb;
         }
-
         .btn {
             background: var(--dark-blue);
             color: #fff;
@@ -62,30 +57,25 @@
             cursor: pointer;
             font-size: 13px;
         }
-
         .btn.save { background: #16a34a; }
         .btn.print { background: #475569; }
-
         .header {
             text-align: center;
             margin-bottom: 15px;
             position: relative;
         }
-
         .school-title {
             color: #0f172a;
             font-size: 18px;
             font-weight: 900;
             margin: 0;
         }
-
         .school-sub {
             color: #334155;
             font-size: 12px;
             direction: ltr;
             margin-top: 2px;
         }
-
         .main-banner {
             background: #2563eb;
             color: white;
@@ -97,14 +87,12 @@
             margin: 15px 0 20px 0;
             box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
         }
-
         .links-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin-bottom: 20px;
         }
-
         .link-item {
             display: flex;
             align-items: center;
@@ -120,26 +108,21 @@
             position: relative;
             height: 52px;
         }
-
         .link-item:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.08);
         }
-
         .icon { font-size: 24px; }
-
         .bg-yellow { background-color: var(--c-yellow); }
         .bg-pink   { background-color: var(--c-pink); }
         .bg-blue   { background-color: var(--c-blue); }
         .bg-orange { background-color: var(--c-orange); }
         .bg-green  { background-color: var(--c-green); }
-
         .big-btn-wrapper {
             text-align: center;
-            margin: 15px 0;
+            margin: 15px 0 10px 0;
             position: relative;
         }
-
         .big-btn {
             display: inline-block;
             background: #2563eb;
@@ -153,14 +136,75 @@
             width: 100%;
             max-width: 320px;
         }
-
+        .news-section {
+            margin: 15px auto;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .news-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: transparent;
+            padding: 6px 10px;
+            border-bottom: 1px dashed #94a3b8;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .news-item:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+        }
+        .news-link-text {
+            color: #1e3a8a;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .news-link-text::before {
+            content: "📌";
+            font-size: 12px;
+        }
+        .news-edit-box {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 4px;
+        }
+        .btn-delete-news {
+            display: none;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 2px 8px;
+            cursor: pointer;
+            font-size: 12px;
+            align-self: flex-start;
+        }
+        .add-news-btn {
+            display: none;
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 12px;
+            margin: 5px auto 0 auto;
+        }
         .social-section {
             margin-top: 15px;
             display: flex;
             justify-content: center;
             gap: 15px;
         }
-
         .social-btn {
             display: flex;
             align-items: center;
@@ -175,17 +219,14 @@
             background-color: #ffffff;
             padding: 8px;
         }
-
         .social-btn svg {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
-
         .social-btn:hover {
             transform: scale(1.1);
         }
-
         .footer {
             text-align: center;
             color: #0f172a;
@@ -194,7 +235,6 @@
             padding-bottom: 60px;
             margin-top: 15px;
         }
-
         .flower-bed {
             position: absolute;
             bottom: 0;
@@ -207,7 +247,6 @@
             opacity: 0.6;
             pointer-events: none;
         }
-
         .url-input, .text-input {
             width: 100%;
             display: none;
@@ -217,21 +256,20 @@
             border-radius: 4px;
             margin-top: 2px;
         }
-
         .edit-box {
             display: flex;
             flex-direction: column;
             width: 100%;
             gap: 2px;
         }
-
         .is-editing .url-input, 
         .is-editing .text-input { display: block; }
-        
         .is-editing .item-title, 
         .is-editing .btn-text,
-        .is-editing .text-target { display: none; }
-
+        .is-editing .text-target,
+        .is-editing .news-link-text { display: none; }
+        .is-editing .btn-delete-news { display: inline-block; }
+        .is-editing .add-news-btn { display: block; }
         .is-editing .social-svg { display: none; }
 
         @media (max-width: 500px) {
@@ -377,6 +415,9 @@
         </a>
     </div>
 
+    <div class="news-section" id="newsContainer"></div>
+    <button class="add-news-btn" id="addNewsBtn" onclick="addNewsItem()">➕ إضافة خبر/مستجد جديد</button>
+
     <div class="social-section">
         <a href="https://whatsapp.com/channel/0029VbBLwYhBPzjPileUCR15" class="social-btn editable-item" data-id="14" target="_blank" title="واتساب">
             <svg class="social-svg" viewBox="0 0 448 512" fill="#25D366">
@@ -384,14 +425,12 @@
             </svg>
             <input type="text" class="url-input" placeholder="رابط واتساب">
         </a>
-        
         <a href="https://www.facebook.com/ahmdbinrashid" class="social-btn editable-item" data-id="15" target="_blank" title="فيسبوك">
             <svg class="social-svg" viewBox="0 0 512 512" fill="#1877F2">
                 <path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/>
             </svg>
             <input type="text" class="url-input" placeholder="رابط فيسبوك">
         </a>
-
         <a href="https://www.instagram.com/ahmed.bin.rashid._school/" class="social-btn editable-item" data-id="16" target="_blank" title="إنستغرام">
             <svg class="social-svg" viewBox="0 0 448 512" fill="#E4405F">
                 <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
@@ -414,21 +453,12 @@
     let isAuthenticated = false;
 
     const memoryStore = {};
-
     const safeStorage = {
         getItem: (key) => {
-            try {
-                return localStorage.getItem(key);
-            } catch (e) {
-                return memoryStore[key] || null;
-            }
+            try { return localStorage.getItem(key); } catch (e) { return memoryStore[key] || null; }
         },
         setItem: (key, value) => {
-            try {
-                localStorage.setItem(key, value);
-            } catch (e) {
-                memoryStore[key] = String(value);
-            }
+            try { localStorage.setItem(key, value); } catch (e) { memoryStore[key] = String(value); }
         }
     };
 
@@ -444,17 +474,21 @@
 
         document.querySelectorAll("[data-id]").forEach(el => {
             const id = el.getAttribute("data-id");
-            if (data[id]) {
-                el.href = data[id].url || "#";
-                const urlInput = el.querySelector(".url-input");
-                if (urlInput) urlInput.value = data[id].url || "";
+            const currentHref = el.getAttribute("href");
 
-                if (data[id].text) {
-                    const textLabel = el.querySelector(".item-title, .btn-text");
-                    const textInput = el.querySelector(".text-input");
-                    if (textLabel) textLabel.innerText = data[id].text;
-                    if (textInput) textInput.value = data[id].text;
-                }
+            // الإصلاح الهام: أخذ الرابط المحفوظ في localStorage، أو إبقاء الرابط الأصلي المكتوب في HTML
+            if (data[id] && data[id].url) {
+                el.href = data[id].url;
+            }
+
+            const urlInput = el.querySelector(".url-input");
+            if (urlInput) urlInput.value = el.getAttribute("href") !== "#" ? el.getAttribute("href") : "";
+
+            if (data[id] && data[id].text) {
+                const textLabel = el.querySelector(".item-title, .btn-text");
+                const textInput = el.querySelector(".text-input");
+                if (textLabel) textLabel.innerText = data[id].text;
+                if (textInput) textInput.value = data[id].text;
             }
         });
 
@@ -468,17 +502,7 @@
             }
         });
 
-        // تحميل أحدث مستجدات والأخبار
-        if (newsData.length === 0) {
-            // بيانات افتراضية توضيحية
-            const defaultNews = [
-                { text: "جدول حصص البث المباشر للأسبوع الحالي", url: "#" },
-                { text: "نتائج مسابقة القراءة السنوية", url: "#" }
-            ];
-            renderNews(defaultNews);
-        } else {
-            renderNews(newsData);
-        }
+        renderNews(newsData);
     });
 
     function renderNews(newsList) {
@@ -522,7 +546,6 @@
 
     function checkPassword() {
         if (isAuthenticated) return true;
-
         const inputPass = prompt("الرجاء إدخال كلمة المرور لتعديل الصفحة:");
         if (inputPass === ADMIN_PASSWORD) {
             isAuthenticated = true;
@@ -567,15 +590,15 @@
                 const urlInput = el.querySelector(".url-input");
                 const textInput = el.querySelector(".text-input");
                 
-                const urlVal = urlInput ? urlInput.value : "";
+                const urlVal = urlInput && urlInput.value ? urlInput.value : el.getAttribute("href");
                 const textVal = textInput ? textInput.value : "";
 
-                el.href = urlVal || "#";
+                if (urlVal) el.href = urlVal;
                 
                 const label = el.querySelector(".item-title, .btn-text");
                 if (label && textVal) label.innerText = textVal;
 
-                linksData[id] = { url: urlVal, text: textVal };
+                linksData[id] = { url: el.href, text: textVal };
                 el.classList.remove("is-editing");
                 el.onclick = null;
             });
@@ -592,7 +615,6 @@
                 el.classList.remove("is-editing");
             });
 
-            // حفظ أحدث المستجدات
             container.querySelectorAll(".news-item").forEach(el => {
                 const textVal = el.querySelector(".news-text-input").value;
                 const urlVal = el.querySelector(".news-url-input").value;
@@ -611,10 +633,9 @@
             document.body.classList.remove("is-editing");
             btn.innerText = "⚙️ تعديل الروابط والعناوين";
             btn.classList.remove("save");
-            alert("تم حفظ جميع التعديلات والمستجدات بنجاح!");
+            alert("تم حفظ جميع التعديلات بنجاح!");
         }
     }
 </script>
-
 </body>
 </html>

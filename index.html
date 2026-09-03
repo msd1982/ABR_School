@@ -413,7 +413,6 @@
     let editMode = false;
     let isAuthenticated = false;
 
-    // ذاكرة مؤقتة بديلة في حال حظر localStorage
     const memoryStore = {};
 
     const safeStorage = {
@@ -441,6 +440,7 @@
 
         const data = JSON.parse(safeStorage.getItem("primarySchoolLinks") || "{}");
         const textsData = JSON.parse(safeStorage.getItem("primarySchoolTexts") || "{}");
+        const newsData = JSON.parse(safeStorage.getItem("primarySchoolNews") || "[]");
 
         document.querySelectorAll("[data-id]").forEach(el => {
             const id = el.getAttribute("data-id");
@@ -467,7 +467,58 @@
                 if (input) input.value = textsData[textId];
             }
         });
+
+        // تحميل أحدث مستجدات والأخبار
+        if (newsData.length === 0) {
+            // بيانات افتراضية توضيحية
+            const defaultNews = [
+                { text: "جدول حصص البث المباشر للأسبوع الحالي", url: "#" },
+                { text: "نتائج مسابقة القراءة السنوية", url: "#" }
+            ];
+            renderNews(defaultNews);
+        } else {
+            renderNews(newsData);
+        }
     });
+
+    function renderNews(newsList) {
+        const container = document.getElementById("newsContainer");
+        container.innerHTML = "";
+        newsList.forEach((item, index) => {
+            const newsHtml = `
+                <a href="${item.url || '#'}" target="_blank" class="news-item news-editable" data-news-index="${index}">
+                    <span class="news-link-text">${item.text}</span>
+                    <div class="news-edit-box">
+                        <input type="text" class="text-input news-text-input" placeholder="عنوان الخبر/المستجد" value="${item.text}">
+                        <input type="text" class="url-input news-url-input" placeholder="رابط الخبر URL" value="${item.url || ''}">
+                    </div>
+                    <button type="button" class="btn-delete-news" onclick="deleteNewsItem(this, event)">🗑️ حذف</button>
+                </a>
+            `;
+            container.insertAdjacentHTML('beforeend', newsHtml);
+        });
+    }
+
+    function addNewsItem() {
+        const container = document.getElementById("newsContainer");
+        const newsHtml = `
+            <a href="#" target="_blank" class="news-item news-editable is-editing">
+                <span class="news-link-text">خبر جديد</span>
+                <div class="news-edit-box">
+                    <input type="text" class="text-input news-text-input" placeholder="عنوان الخبر/المستجد" value="خبر جديد">
+                    <input type="text" class="url-input news-url-input" placeholder="رابط الخبر URL" value="">
+                </div>
+                <button type="button" class="btn-delete-news" onclick="deleteNewsItem(this, event)">🗑️ حذف</button>
+            </a>
+        `;
+        container.insertAdjacentHTML('beforeend', newsHtml);
+    }
+
+    function deleteNewsItem(btn, event) {
+        event.preventDefault();
+        event.stopPropagation();
+        btn.closest('.news-item').remove();
+    }
 
     function checkPassword() {
         if (isAuthenticated) return true;
@@ -489,19 +540,27 @@
         editMode = !editMode;
         const btn = document.getElementById("toggleEdit");
         const items = document.querySelectorAll(".editable-item, .editable-text");
+        const container = document.getElementById("newsContainer");
 
         if (editMode) {
             btn.innerText = "💾 حفظ التغييرات";
             btn.classList.add("save");
+            document.body.classList.add("is-editing");
+
             items.forEach(el => {
                 el.classList.add("is-editing");
-                if (el.tagName === 'A') {
-                    el.onclick = (e) => e.preventDefault();
-                }
+                if (el.tagName === 'A') el.onclick = (e) => e.preventDefault();
             });
+
+            container.querySelectorAll(".news-item").forEach(el => {
+                el.classList.add("is-editing");
+                el.onclick = (e) => e.preventDefault();
+            });
+
         } else {
             const linksData = {};
             const textsData = {};
+            const newsData = [];
 
             document.querySelectorAll("[data-id]").forEach(el => {
                 const id = el.getAttribute("data-id");
@@ -533,12 +592,26 @@
                 el.classList.remove("is-editing");
             });
 
+            // حفظ أحدث المستجدات
+            container.querySelectorAll(".news-item").forEach(el => {
+                const textVal = el.querySelector(".news-text-input").value;
+                const urlVal = el.querySelector(".news-url-input").value;
+
+                if (textVal.trim() !== "") {
+                    newsData.push({ text: textVal, url: urlVal });
+                }
+            });
+
+            renderNews(newsData);
+
             safeStorage.setItem("primarySchoolLinks", JSON.stringify(linksData));
             safeStorage.setItem("primarySchoolTexts", JSON.stringify(textsData));
+            safeStorage.setItem("primarySchoolNews", JSON.stringify(newsData));
 
+            document.body.classList.remove("is-editing");
             btn.innerText = "⚙️ تعديل الروابط والعناوين";
             btn.classList.remove("save");
-            alert("تم حفظ جميع التعديلات بنجاح!");
+            alert("تم حفظ جميع التعديلات والمستجدات بنجاح!");
         }
     }
 </script>

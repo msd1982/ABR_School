@@ -118,6 +118,7 @@
         .bg-blue   { background-color: var(--c-blue); }
         .bg-orange { background-color: var(--c-orange); }
         .bg-green  { background-color: var(--c-green); }
+        
         .big-btn-wrapper {
             text-align: center;
             margin: 15px 0 10px 0;
@@ -136,6 +137,8 @@
             width: 100%;
             max-width: 320px;
         }
+
+        /* --- قسم الأخبار والمستجدات (تصميم خاص بدون خلفية) --- */
         .news-section {
             margin: 15px auto;
             max-width: 500px;
@@ -154,7 +157,7 @@
             transition: all 0.2s;
         }
         .news-item:hover {
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.4);
             border-radius: 8px;
         }
         .news-link-text {
@@ -181,7 +184,7 @@
             color: white;
             border: none;
             border-radius: 6px;
-            padding: 2px 8px;
+            padding: 4px 8px;
             cursor: pointer;
             font-size: 12px;
             align-self: flex-start;
@@ -191,14 +194,15 @@
             background: #10b981;
             color: white;
             border: none;
-            padding: 6px 12px;
+            padding: 8px 14px;
             border-radius: 8px;
             font-family: inherit;
             font-weight: 700;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
             margin: 5px auto 0 auto;
         }
+
         .social-section {
             margin-top: 15px;
             display: flex;
@@ -405,6 +409,7 @@
         </a>
     </div>
 
+    <!-- زر الرئيسي لأخبار ومستجدات المدرسة -->
     <div class="big-btn-wrapper">
         <a href="#" class="big-btn editable-item" id="guideBtn" data-id="13" target="_blank">
             <div class="edit-box">
@@ -415,6 +420,7 @@
         </a>
     </div>
 
+    <!-- قسم الأخبار والمستجدات الديناميكي -->
     <div class="news-section" id="newsContainer"></div>
     <button class="add-news-btn" id="addNewsBtn" onclick="addNewsItem()">➕ إضافة خبر/مستجد جديد</button>
 
@@ -474,9 +480,7 @@
 
         document.querySelectorAll("[data-id]").forEach(el => {
             const id = el.getAttribute("data-id");
-            const currentHref = el.getAttribute("href");
 
-            // الإصلاح الهام: أخذ الرابط المحفوظ في localStorage، أو إبقاء الرابط الأصلي المكتوب في HTML
             if (data[id] && data[id].url) {
                 el.href = data[id].url;
             }
@@ -510,7 +514,7 @@
         container.innerHTML = "";
         newsList.forEach((item, index) => {
             const newsHtml = `
-                <a href="${item.url || '#'}" target="_blank" class="news-item news-editable" data-news-index="${index}">
+                <a href="${item.url || '#'}" target="_blank" class="news-item news-editable ${editMode ? 'is-editing' : ''}" data-news-index="${index}">
                     <span class="news-link-text">${item.text}</span>
                     <div class="news-edit-box">
                         <input type="text" class="text-input news-text-input" placeholder="عنوان الخبر/المستجد" value="${item.text}">
@@ -521,6 +525,12 @@
             `;
             container.insertAdjacentHTML('beforeend', newsHtml);
         });
+
+        if (editMode) {
+            container.querySelectorAll(".news-item").forEach(el => {
+                el.onclick = (e) => e.preventDefault();
+            });
+        }
     }
 
     function addNewsItem() {
@@ -536,6 +546,8 @@
             </a>
         `;
         container.insertAdjacentHTML('beforeend', newsHtml);
+        const newItem = container.lastElementChild;
+        newItem.onclick = (e) => e.preventDefault();
     }
 
     function deleteNewsItem(btn, event) {
